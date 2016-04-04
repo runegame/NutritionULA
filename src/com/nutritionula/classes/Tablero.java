@@ -4,16 +4,24 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.Random;
+
+import static com.nutritionula.classes.Constants.LEVEL_EASY;
+import static com.nutritionula.classes.Constants.LEVEL_HIGH;
+import static com.nutritionula.classes.Constants.LEVEL_MID;
 
 /**
  * Created by Angel C on 03/04/2016.
  */
 public class Tablero extends JPanel {
+
     //array con los nombres de las banderas 8 en total para 16 pares
-    private String[] band = {"cambur","durazno","fresa","mango","manzana","naranja","pinia","uvas"};
+    private String[] bands = {"cambur","coco","durazno","fresa","limon","mango","manzana","melon","naranja","parchita","patilla","pera","pinia","uvas"};
+    private String[] cardList;
+    private int numberOfCards;
 
     private int fila =4;
-    private int col = 4;
+    private int col;
     private int ancho_casilla=175;
 
     public boolean play = false;
@@ -24,9 +32,34 @@ public class Tablero extends JPanel {
     int aciertos=0;
 
     /** Constructor de clase */
-    public Tablero(){
+    public Tablero(int difficulty) {
         super();
+
         //propiedades
+        switch (difficulty) {
+            case LEVEL_EASY:
+                col = 4;
+                numberOfCards = 8;
+                System.out.println("Dificultad Baja Seleccionada");
+                break;
+            case LEVEL_MID:
+                col = 5;
+                numberOfCards = 10;
+                System.out.println("Dificultad Media Seleccionada");
+                break;
+            case LEVEL_HIGH:
+                col = 7;
+                numberOfCards = 14;
+                System.out.println("Dificultad Alta Seleccionada");
+                break;
+            default:
+                col = 4;
+                System.out.print("Todo bien");
+                break;
+        }
+
+        cardList = createCardsList();
+
         setBorder( BorderFactory.createEmptyBorder(0, 0, 0, 0));
         setLayout( new java.awt.GridLayout(fila, col) );
         Dimension d= new Dimension( (ancho_casilla*col),(ancho_casilla*fila)  );
@@ -37,9 +70,9 @@ public class Tablero extends JPanel {
         int count=0;
         for(int i=1;i<=(fila*col);i++){
             Casilla p = new Casilla( String.valueOf(i) );
-            p.setBandera( band[count] );
+            p.setBandera( cardList[count] );
             count++;
-            count = (count>=band.length)? 0:count++;
+            count = (count>=cardList.length)? 0:count++;
             p.showBandera();
             p.addMouseListener( new juegoMouseListener() );
             this.add( p );
@@ -64,14 +97,13 @@ public class Tablero extends JPanel {
         }
         //coloca nuevo orden aleatorio de banderas
         for( int i=0; i< componentes.length ;i++){
-            int n = (int) (Math.random()*(band.length));
-            if( !existe(band[n]) ){//comprueba que bandera no este asignada mas de 2 veces
-                ((Casilla)componentes[i]).setBandera( band[n] );
+            int n = (int) (Math.random()*(cardList.length));
+            if( !existe(cardList[n]) ){//comprueba que bandera no este asignada mas de 2 veces
+                ((Casilla)componentes[i]).setBandera( cardList[n]);
             }else{
                 i--;
             }
         }
-
     }
 
 
@@ -180,5 +212,31 @@ public class Tablero extends JPanel {
             }
             return null;
         }
+    }
+
+    public String[] createCardsList() {
+
+        Random random = new Random();
+
+        String[] cardsList = new String[numberOfCards]; // colocar aqui el tamaño del tablero
+
+        int cardsAdded = 0;
+
+        while (cardsAdded < numberOfCards) {
+            String card = bands[random.nextInt(bands.length)];
+            boolean addCart = true;
+            for (int i = 0; i < cardsAdded; i++) {
+                if (cardsList[i].equals(card)) {
+                    addCart = false;
+                }
+            }
+
+            if (addCart) {
+                cardsList[cardsAdded] = card;
+                System.out.println(cardsList[cardsAdded]);
+                cardsAdded++;
+            }
+        }
+        return cardsList;
     }
 }
