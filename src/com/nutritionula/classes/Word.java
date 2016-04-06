@@ -2,8 +2,6 @@ package com.nutritionula.classes;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
 /**
  * Created by Angel C on 05/04/2016.
@@ -11,59 +9,49 @@ import java.awt.event.MouseEvent;
 
 public class Word extends JLabel {
 
-    public static final int WORD_SELECTED = 0;
-    public static final int WORD_UNSELECTED = 1;
+    public static final int LETTER_SELECTED = 0;
+    public static final int LETTER_UNSELECTED = 1;
     public static final int WORD_FOUND = 2;
     public static final int WORD_LOST = 3;
-    public static final int WORD_FINDABLE = 4;
-    public static final int WORD_INFINDABLE = 5;
+    public static final int LETTER_FINDABLE = 4;
+    public static final int LETTER_INFINDABLE = 5;
 
-    private int wordCheckedState;
+    private int letterCheckedState;
     private int wordSearchState;
-    private int wordFindableState;
+    private int letterFindableState;
 
+    private int numberOfWord;
 
-    public Word (char word, int wordFindableState) {
+    public Word (char letter,int numberOfWord, int wordFindableState) {
         setOpaque(true);
-        setWordCheckedState(WORD_UNSELECTED);
-        setWordFindableState(wordFindableState);
+        setWordSearchState(WORD_LOST);
+        setLetterCheckedState(LETTER_UNSELECTED);
+        setLetterFindableState(wordFindableState);
         setBackground(Color.WHITE);
         setHorizontalAlignment(CENTER);
-        setText(Character.toString(word));
-
-        addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                refreshWord(getWordCheckedState());
-                if (getWordFindableState()==WORD_FINDABLE) {
-                    JOptionPane.showMessageDialog(null,"LETRA PERTENECE A UNA PALABRA");
-                }
-                else if (getWordFindableState()==WORD_INFINDABLE) {
-                    JOptionPane.showMessageDialog(null,"LETRA NO PERTENECE A UNA PALABRA");
-                }
-            }
-        });
+        setText(Character.toString(letter));
+        setNumberOfWord(numberOfWord);
     }
 
     public void refreshWord(int wordCheckedState) {
 
         switch (wordCheckedState) {
-            case WORD_UNSELECTED:
-                setWordCheckedState(WORD_SELECTED);
+            case LETTER_UNSELECTED:
+                setLetterCheckedState(LETTER_SELECTED);
                 setBackground(Color.BLUE);
                 break;
-            case WORD_SELECTED:
-                setWordCheckedState(WORD_UNSELECTED);
+            case LETTER_SELECTED:
+                setLetterCheckedState(LETTER_UNSELECTED);
                 setBackground(Color.WHITE);
         }
     }
 
-    public int getWordCheckedState() {
-        return wordCheckedState;
+    public int getLetterCheckedState() {
+        return letterCheckedState;
     }
 
-    public void setWordCheckedState(int wordCheckedState) {
-        this.wordCheckedState = wordCheckedState;
+    public void setLetterCheckedState(int letterCheckedState) {
+        this.letterCheckedState = letterCheckedState;
     }
 
     public int getWordSearchState() {
@@ -74,11 +62,19 @@ public class Word extends JLabel {
         this.wordSearchState = wordSearchState;
     }
 
-    public int getWordFindableState() {
-        return wordFindableState;
+    public int getLetterFindableState() {
+        return letterFindableState;
     }
 
-    public void setWordFindableState(int wordFindableState) {
-        this.wordFindableState = wordFindableState;
+    public void setLetterFindableState(int wordFindableState) {
+        this.letterFindableState = wordFindableState;
+    }
+
+    public int getNumberOfWord() {
+        return numberOfWord;
+    }
+
+    public void setNumberOfWord(int numberOfWord) {
+        this.numberOfWord = numberOfWord;
     }
 }

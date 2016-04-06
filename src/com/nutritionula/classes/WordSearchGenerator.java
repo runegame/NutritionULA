@@ -1,17 +1,16 @@
 package com.nutritionula.classes;
 
-import java.text.ParseException;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Random;
-import java.util.Scanner;
 
-import static com.nutritionula.classes.Word.WORD_FINDABLE;
-import static com.nutritionula.classes.Word.WORD_INFINDABLE;
+import static com.nutritionula.classes.Word.LETTER_FINDABLE;
+import static com.nutritionula.classes.Word.LETTER_INFINDABLE;
 
 /**
  * Created by Angel C on 05/04/2016.
  */
+
 public class WordSearchGenerator {
 
     private String[] wordsArray;
@@ -34,7 +33,7 @@ public class WordSearchGenerator {
             boolean direction = random.nextBoolean();
 
             if (puzzle[i][j] == 0 || puzzle[i][j] == word.charAt(startChar)) {
-                if (placeWord(word, i, j, startChar, direction)) {
+                if (placeWord(w, word, i, j, startChar, direction)) {
                     w++;
                 }
             }
@@ -45,7 +44,7 @@ public class WordSearchGenerator {
         return puzzleLetters;
     }
 
-    private boolean placeWord(String word, int i, int j, int startChar,
+    private boolean placeWord(int numberOfWord, String word, int i, int j, int startChar,
                               boolean direction) {
         if (!fits(word, i, j, startChar, direction)) {
             return false;
@@ -67,7 +66,9 @@ public class WordSearchGenerator {
                 puzzle[k][j] = word.charAt(k - start);
                 puzzleLetters[k][j] = new Letter();
                 puzzleLetters[k][j].setCharacther(word.charAt(k-start));
-                puzzleLetters[k][j].setFindable(WORD_FINDABLE);
+                puzzleLetters[k][j].setNumberOfWord(numberOfWord);
+                puzzleLetters[k][j].setWord(word);
+                puzzleLetters[k][j].setFindable(LETTER_FINDABLE);
             }
         } else {
             start = j - startChar;
@@ -83,7 +84,9 @@ public class WordSearchGenerator {
                 puzzle[i][k] = word.charAt(k - start);
                 puzzleLetters[i][k] = new Letter();
                 puzzleLetters[i][k].setCharacther(word.charAt(k-start));
-                puzzleLetters[i][k].setFindable(WORD_FINDABLE);
+                puzzleLetters[i][k].setNumberOfWord(numberOfWord);
+                puzzleLetters[i][k].setWord(word);
+                puzzleLetters[i][k].setFindable(LETTER_FINDABLE);
             }
         }
 
@@ -116,14 +119,13 @@ public class WordSearchGenerator {
                     puzzleLetters[i][j] = new Letter();
                     puzzleLetters[i][j].setCharacther(alphabet.charAt(Math.abs(random.nextInt()
                             % alphabet.length())));
-                    puzzleLetters[i][j].setFindable(WORD_INFINDABLE);
+                    puzzleLetters[i][j].setFindable(LETTER_INFINDABLE);
                 }
             }
         }
     }
 
     private void init() {
-        sortWordsByLength();
         size = 20;
         puzzle = new char[size][size];
         puzzleLetters = new Letter[size][size];
@@ -132,16 +134,5 @@ public class WordSearchGenerator {
         for (int i = 0; i < wordsArray.length; i++) {
             wordsArray[i] = wordsArray[i].toUpperCase();
         }
-    }
-
-    private void sortWordsByLength() {
-        Arrays.sort(wordsArray, new Comparator<String>() {
-            @Override
-            public int compare(String s0, String s1) {
-                int l0 = s0.length();
-                int l1 = s1.length();
-                return l0 > l1 ? -1 : (l0 < l1 ? 1 : 0);
-            }
-        });
     }
 }

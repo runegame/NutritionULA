@@ -6,15 +6,21 @@ package com.nutritionula.classes;
 public class Letter {
 
     private char characther;
+    private int numberOfWord;
+    private String word;
     private int findable;
 
     public Letter() {
         this.characther = 'a';
-        this.findable = Word.WORD_INFINDABLE;
+        this.numberOfWord = 0;
+        this.word = "";
+        this.findable = Word.LETTER_INFINDABLE;
     }
 
-    public Letter(char characther, int findable) {
+    public Letter(char characther,int numberOfWord, String word, int findable) {
         setCharacther(characther);
+        setNumberOfWord(numberOfWord);
+        setWord(word);
         setFindable(findable);
     }
 
@@ -32,5 +38,22 @@ public class Letter {
 
     public void setFindable(int findable) {
         this.findable = findable;
+    }
+
+    public String getWord() {
+        return word;
+    }
+
+    public void setWord(String word) {
+        this.word = word;
+    }
+
+
+    public int getNumberOfWord() {
+        return numberOfWord;
+    }
+
+    public void setNumberOfWord(int numberOfWord) {
+        this.numberOfWord = numberOfWord;
     }
 }

@@ -40,35 +40,48 @@ public class Start extends JFrame {
 //        titleLabel.setOpaque(true);
         getContentPane().add(titleLabel,BorderLayout.NORTH);
 
-        startContainer = new JPanel(new GridLayout(4,1,10,10));
+        startContainer = new JPanel(new GridLayout(5,1,10,10));
+        startContainer.setOpaque(true);
+        startContainer.setBackground(Color.WHITE);
         JLabel jLabel1 = new JLabel("Memoria Nutritiva");
         JLabel jLabel2 = new JLabel("Arma Tu Plato");
         JLabel jLabel3 = new JLabel("Conoce Los Alimentos");
-        JLabel jLabel4 = new JLabel("Salir");
+        JLabel jLabel4 = new JLabel("Sopa de Letras");
+        JLabel jLabel5 = new JLabel("Salir");
 
         jLabel1.setOpaque(true);
         jLabel2.setOpaque(true);
         jLabel3.setOpaque(true);
         jLabel4.setOpaque(true);
+        jLabel5.setOpaque(true);
+
+        jLabel1.setBackground(Color.WHITE);
+        jLabel2.setBackground(Color.WHITE);
+        jLabel3.setBackground(Color.WHITE);
+        jLabel4.setBackground(Color.WHITE);
+        jLabel5.setBackground(Color.WHITE);
 
         jLabel1.setHorizontalAlignment(SwingConstants.CENTER);
         jLabel2.setHorizontalAlignment(SwingConstants.CENTER);
         jLabel3.setHorizontalAlignment(SwingConstants.CENTER);
         jLabel4.setHorizontalAlignment(SwingConstants.CENTER);
+        jLabel5.setHorizontalAlignment(SwingConstants.CENTER);
 
         jLabel1.setFont(new Font("Mickey",Font.PLAIN,30));
         jLabel2.setFont(new Font("Mickey",Font.PLAIN,30));
         jLabel3.setFont(new Font("Mickey",Font.PLAIN,30));
         jLabel4.setFont(new Font("Mickey",Font.PLAIN,30));
+        jLabel5.setFont(new Font("Mickey",Font.PLAIN,30));
 
         Cursor cursor = new Cursor(Cursor.HAND_CURSOR);
         jLabel1.setCursor(cursor);
         jLabel4.setCursor(cursor);
+        jLabel5.setCursor(cursor);
 
         jLabel1.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                iniciarMemoria();
+                initMemory();
             }
 
             @Override
@@ -109,7 +122,7 @@ public class Start extends JFrame {
         jLabel4.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                System.exit(0);
+                initWordSearch();
             }
 
             @Override
@@ -123,10 +136,28 @@ public class Start extends JFrame {
             }
         });
 
+        jLabel5.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                System.exit(0);
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                jLabel5.setBackground(Color.CYAN);
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                jLabel5.setBackground(Color.WHITE);
+            }
+        });
+
         startContainer.add(jLabel1);
         startContainer.add(jLabel2);
         startContainer.add(jLabel3);
         startContainer.add(jLabel4);
+        startContainer.add(jLabel5);
 
         getContentPane().add(startContainer,BorderLayout.CENTER);
 
@@ -144,8 +175,13 @@ public class Start extends JFrame {
         }
     }
 
-    public void iniciarMemoria() {
+    public void initMemory() {
         new Memory().setVisible(true);
+        this.dispose();
+    }
+
+    public void initWordSearch() {
+        new WordSearch();
         this.dispose();
     }
 
