@@ -200,7 +200,7 @@ public class Tablero extends JPanel {
                 casilla2.congelarImagen(true);
                 System.out.println("doInBackground: imagenes son iguales");
                 aciertos++;
-                if( aciertos == 8 ){//win
+                if( aciertos == numberOfCards ){//win
                     System.out.println("doInBackground: Usted es un ganador!");
                     JOptionPane.showMessageDialog(null,"Usted es un ganador!");
                 }
