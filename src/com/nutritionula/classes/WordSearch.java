@@ -26,7 +26,7 @@ public class WordSearch extends JFrame {
         generator = new WordSearchGenerator();
         String[] wordsArray = {"alimentacion","facebook","merida","calabozo"};
 
-        char[][] puzzle = generator.generate(wordsArray);
+        Letter[][] puzzle = generator.generate(wordsArray);
 
         jPanelContenedor = new JPanel(new BorderLayout());
         jPanelSopaDeLetras = new JPanel();
@@ -35,12 +35,10 @@ public class WordSearch extends JFrame {
         jPanelSopaDeLetras.setPreferredSize(new Dimension(768,768));
         jPanelSopaDeLetras.setLayout(new GridLayout(20,20,0,0));
 
-        for (char[] line : puzzle) {
-            for (char c : line) {
-                jPanelSopaDeLetras.add(new Word(c));
+        for (Letter[] line : puzzle) {
+            for (Letter c : line) {
+                jPanelSopaDeLetras.add(new Word(c.getCharacther(),c.getFindable()));
             }
-
-            System.out.println();
         }
 
 //        for (int i = 0; i < 400; i++) {

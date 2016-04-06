@@ -15,14 +15,18 @@ public class Word extends JLabel {
     public static final int WORD_UNSELECTED = 1;
     public static final int WORD_FOUND = 2;
     public static final int WORD_LOST = 3;
+    public static final int WORD_FINDABLE = 4;
+    public static final int WORD_INFINDABLE = 5;
 
     private int wordCheckedState;
     private int wordSearchState;
+    private int wordFindableState;
 
 
-    public Word (char word) {
+    public Word (char word, int wordFindableState) {
         setOpaque(true);
         setWordCheckedState(WORD_UNSELECTED);
+        setWordFindableState(wordFindableState);
         setBackground(Color.WHITE);
         setHorizontalAlignment(CENTER);
         setText(Character.toString(word));
@@ -31,6 +35,12 @@ public class Word extends JLabel {
             @Override
             public void mouseClicked(MouseEvent e) {
                 refreshWord(getWordCheckedState());
+                if (getWordFindableState()==WORD_FINDABLE) {
+                    JOptionPane.showMessageDialog(null,"LETRA PERTENECE A UNA PALABRA");
+                }
+                else if (getWordFindableState()==WORD_INFINDABLE) {
+                    JOptionPane.showMessageDialog(null,"LETRA NO PERTENECE A UNA PALABRA");
+                }
             }
         });
     }
@@ -62,5 +72,13 @@ public class Word extends JLabel {
 
     public void setWordSearchState(int wordSearchState) {
         this.wordSearchState = wordSearchState;
+    }
+
+    public int getWordFindableState() {
+        return wordFindableState;
+    }
+
+    public void setWordFindableState(int wordFindableState) {
+        this.wordFindableState = wordFindableState;
     }
 }

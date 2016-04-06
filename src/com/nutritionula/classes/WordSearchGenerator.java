@@ -6,38 +6,21 @@ import java.util.Comparator;
 import java.util.Random;
 import java.util.Scanner;
 
+import static com.nutritionula.classes.Word.WORD_FINDABLE;
+import static com.nutritionula.classes.Word.WORD_INFINDABLE;
+
 /**
  * Created by Angel C on 05/04/2016.
  */
 public class WordSearchGenerator {
 
     private String[] wordsArray;
+    private Letter [][] puzzleLetters;
     private char[][] puzzle;
     private int size;
     private Random random;
 
-    public static void main(String[] args) throws ParseException {
-//        WordSearchGenerator sopaDeLetras = new WordSearchGenerator();
-//        Scanner scanner = new Scanner(System.in);
-//        int words = scanner.nextInt();
-//        String[] wordsArray = new String[words];
-
-//        for (int i = 0; i < words; i++) {
-//            wordsArray[i] = scanner.next();
-//        }
-
-//        char[][] puzzle = sopaDeLetras.generate(wordsArray);
-
-//        for (char[] line : puzzle) {
-//            for (char c : line) {
-//                System.out.print(c + " ");
-//            }
-//
-//            System.out.println();
-//        }
-    }
-
-    public char[][] generate(String[] wa) {
+    public Letter[][] generate(String[] wa) {
         wordsArray = wa;
         init();
 
@@ -59,7 +42,7 @@ public class WordSearchGenerator {
 
         fillTheRest();
 
-        return puzzle;
+        return puzzleLetters;
     }
 
     private boolean placeWord(String word, int i, int j, int startChar,
@@ -79,8 +62,12 @@ public class WordSearchGenerator {
                 }
             }
 
+            // Aqui es donde se le asigna el valor a la matriz
             for (int k = start; k < start + word.length(); k++) {
                 puzzle[k][j] = word.charAt(k - start);
+                puzzleLetters[k][j] = new Letter();
+                puzzleLetters[k][j].setCharacther(word.charAt(k-start));
+                puzzleLetters[k][j].setFindable(WORD_FINDABLE);
             }
         } else {
             start = j - startChar;
@@ -91,8 +78,12 @@ public class WordSearchGenerator {
                 }
             }
 
+            // Aqui es donde se le asigna el valor a la matriz
             for (int k = start; k < start + word.length(); k++) {
                 puzzle[i][k] = word.charAt(k - start);
+                puzzleLetters[i][k] = new Letter();
+                puzzleLetters[i][k].setCharacther(word.charAt(k-start));
+                puzzleLetters[i][k].setFindable(WORD_FINDABLE);
             }
         }
 
@@ -122,6 +113,10 @@ public class WordSearchGenerator {
                 if (puzzle[i][j] == 0) {
                     puzzle[i][j] = alphabet.charAt(Math.abs(random.nextInt()
                             % alphabet.length()));
+                    puzzleLetters[i][j] = new Letter();
+                    puzzleLetters[i][j].setCharacther(alphabet.charAt(Math.abs(random.nextInt()
+                            % alphabet.length())));
+                    puzzleLetters[i][j].setFindable(WORD_INFINDABLE);
                 }
             }
         }
@@ -129,9 +124,9 @@ public class WordSearchGenerator {
 
     private void init() {
         sortWordsByLength();
-//        size = wordsArray[0].length() * 2;
         size = 20;
         puzzle = new char[size][size];
+        puzzleLetters = new Letter[size][size];
         random = new Random();
 
         for (int i = 0; i < wordsArray.length; i++) {
