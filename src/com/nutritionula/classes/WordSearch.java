@@ -11,6 +11,8 @@ public class WordSearch extends JFrame {
 
     JPanel jPanelContenedor, jPanelSopaDeLetras, jPanelPalabras;
 
+    WordSearchGenerator generator;
+
     public WordSearch() {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setExtendedState(MAXIMIZED_BOTH);
@@ -21,6 +23,11 @@ public class WordSearch extends JFrame {
     }
 
     public void initComponents() {
+        generator = new WordSearchGenerator();
+        String[] wordsArray = {"alimentacion","facebook","merida","calabozo"};
+
+        char[][] puzzle = generator.generate(wordsArray);
+
         jPanelContenedor = new JPanel(new BorderLayout());
         jPanelSopaDeLetras = new JPanel();
         jPanelPalabras = new JPanel();
@@ -28,9 +35,17 @@ public class WordSearch extends JFrame {
         jPanelSopaDeLetras.setPreferredSize(new Dimension(768,768));
         jPanelSopaDeLetras.setLayout(new GridLayout(20,20,0,0));
 
-        for (int i = 0; i < 400; i++) {
-            jPanelSopaDeLetras.add(new Word("A"));
+        for (char[] line : puzzle) {
+            for (char c : line) {
+                jPanelSopaDeLetras.add(new Word(c));
+            }
+
+            System.out.println();
         }
+
+//        for (int i = 0; i < 400; i++) {
+//            jPanelSopaDeLetras.add(new Word("A"));
+//        }
 
         jPanelPalabras.setPreferredSize(new Dimension(598,768));
         jPanelPalabras.setBackground(Color.black);

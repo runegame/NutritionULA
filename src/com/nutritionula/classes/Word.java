@@ -20,12 +20,12 @@ public class Word extends JLabel {
     private int wordSearchState;
 
 
-    public Word (String word) {
+    public Word (char word) {
         setOpaque(true);
         setWordCheckedState(WORD_UNSELECTED);
         setBackground(Color.WHITE);
         setHorizontalAlignment(CENTER);
-        setText(word);
+        setText(Character.toString(word));
 
         addMouseListener(new MouseAdapter() {
             @Override

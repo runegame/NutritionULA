@@ -17,24 +17,24 @@ public class WordSearchGenerator {
     private Random random;
 
     public static void main(String[] args) throws ParseException {
-        WordSearchGenerator sopaDeLetras = new WordSearchGenerator();
-        Scanner scanner = new Scanner(System.in);
-        int words = scanner.nextInt();
-        String[] wordsArray = new String[words];
+//        WordSearchGenerator sopaDeLetras = new WordSearchGenerator();
+//        Scanner scanner = new Scanner(System.in);
+//        int words = scanner.nextInt();
+//        String[] wordsArray = new String[words];
 
-        for (int i = 0; i < words; i++) {
-            wordsArray[i] = scanner.next();
-        }
+//        for (int i = 0; i < words; i++) {
+//            wordsArray[i] = scanner.next();
+//        }
 
-        char[][] puzzle = sopaDeLetras.generate(wordsArray);
+//        char[][] puzzle = sopaDeLetras.generate(wordsArray);
 
-        for (char[] line : puzzle) {
-            for (char c : line) {
-                System.out.print(c + " ");
-            }
-
-            System.out.println();
-        }
+//        for (char[] line : puzzle) {
+//            for (char c : line) {
+//                System.out.print(c + " ");
+//            }
+//
+//            System.out.println();
+//        }
     }
 
     public char[][] generate(String[] wa) {
