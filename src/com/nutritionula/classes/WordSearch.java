@@ -85,10 +85,6 @@ public class WordSearch extends JFrame {
             }
         }
 
-//        for (int i = 0; i < 400; i++) {
-//            jPanelSopaDeLetras.add(new Word("A"));
-//        }
-
         jPanelPalabras.setPreferredSize(new Dimension(598,768));
         jPanelPalabras.setBackground(Color.WHITE);
 
@@ -162,10 +158,6 @@ public class WordSearch extends JFrame {
                 return l0 > l1 ? -1 : (l0 < l1 ? 1 : 0);
             }
         });
-    }
-
-    public void verifyWordFound() {
-
     }
 
     public static void main (String [] args) {
