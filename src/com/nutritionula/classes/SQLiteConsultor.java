@@ -15,7 +15,8 @@ public class SQLiteConsultor {
     ResultSet resultSet;
 
     public SQLiteConsultor() {
-        ruta = "C:/users/Angel C/Desktop/alimentos.s3db";
+        String userHome = System.getProperty("user.dir");
+        ruta = userHome+ "/alimentos.s3db";
     }
 
     public void connect() {
