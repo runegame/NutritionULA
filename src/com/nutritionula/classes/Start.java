@@ -2,6 +2,8 @@ package com.nutritionula.classes;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
@@ -186,6 +188,16 @@ public class Start extends JFrame {
         getContentPane().add(startContainer,BorderLayout.CENTER);
 
         setExtendedState(MAXIMIZED_BOTH);
+
+        addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyReleased(KeyEvent e) {
+
+                if (e.getKeyCode()==123) {
+                    initSQLiteEditor();
+                }
+            }
+        });
     }
 
     public void registerFont() {
@@ -211,6 +223,11 @@ public class Start extends JFrame {
 
     public void initElAhorcado() {
         new ElAhorcado().setVisible(true);
+        this.dispose();
+    }
+
+    public void initSQLiteEditor() {
+        new SQLiteEditor();
         this.dispose();
     }
 
